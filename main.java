@@ -1,12 +1,30 @@
-class main {
+import java.util.Scanner;
 
-    public static void mostrarEtiqueta(String guia, String destino, double peso) {
-        System.out.println("Guia: " + guia);
-        System.out.println("Destino: " + destino);
-        System.out.println("Peso: " + peso + " kg");
+public class main {
+
+    public static double calcularRenta(double tarifa, double horas) {
+        double total = tarifa * horas;
+        return total;
+    }
+
+    public static void mostrarComprobante(double total) {
+        System.out.println("Lo que debe pagar es: $" + total);
     }
 
     public static void main(String[] args) {
-        mostrarEtiqueta("GUIA-02", "Guerrero", 10);
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Tarifa por cada hora:");
+        double tarifa = sc.nextDouble();
+
+        System.out.print("Horas:");
+        double horas = sc.nextDouble();
+
+        if (tarifa <= 0 || horas <= 0) {
+            System.out.println("Debe ser mayor a 0");
+        } else {
+            double total = calcularRenta(tarifa, horas);
+            mostrarComprobante(total);
+        }
     }
 }
