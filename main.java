@@ -1,30 +1,39 @@
 import java.util.Scanner;
 
-public class main {
+class main {
 
-    public static double calcularRenta(double tarifa, double horas) {
-        double total = tarifa * horas;
-        return total;
-    }
+    public static int calcularMinutos(int bateria) {
+        int minutos = 0;
 
-    public static void mostrarComprobante(double total) {
-        System.out.println("Lo que debe pagar es: $" + total);
+        while (bateria < 100) {
+            bateria = bateria + 8;
+            if (bateria > 100) {
+                bateria = 100;
+            }
+            minutos++;
+        }
+        return minutos;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        String opcion = "si";
 
-        System.out.print("Tarifa por cada hora:");
-        double tarifa = sc.nextDouble();
+        while (opcion.equals("si")) {
+            System.out.print("¿Cuánta bateria tiene? (0-100):");
+            int bateria = sc.nextInt();
 
-        System.out.print("Horas:");
-        double horas = sc.nextDouble();
+            if (bateria < 0 || bateria > 100) {
+                System.out.println("Error: debe estar entre el 0 y el 100");
+            } else {
+                int minutos = calcularMinutos(bateria);
+                System.out.println("faltan " + minutos + " minutos para cargar completamente");
+            }
 
-        if (tarifa <= 0 || horas <= 0) {
-            System.out.println("Debe ser mayor a 0");
-        } else {
-            double total = calcularRenta(tarifa, horas);
-            mostrarComprobante(total);
+            System.out.print("¿Revisar bateria de nuevo? (si/no):");
+            opcion = sc.next();
         }
+
+        System.out.println("Fin de la revision");
     }
 }
