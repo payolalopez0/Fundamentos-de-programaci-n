@@ -1,32 +1,61 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+
+    public static int[] capturarCalificaciones() {
         Scanner sc = new Scanner(System.in);
+        int[] calificaciones = new int[10];
 
-        int puntosObtenidos = 0;
-        int masDeMilPuntos = 0;
-        int menosOIgualAMil = 0;
-
-        for (int i = 1; i <= 7; i++) {
-            System.out.print("Ingresa la puntuacion obtenida de la partida" + i + ":");
-            int puntuacion = sc.nextInt();
-
-            puntosObtenidos = puntosObtenidos + puntuacion;
-
-            if (puntuacion > 1000) {
-                masDeMilPuntos++;
-            } else {
-                menosOIgualAMil++;
+        for (int i = 0; i < 10; i++) {
+            int cal = -1;
+            while (cal < 0 || cal > 100) {
+                System.out.print("calificación del alumno " + (i + 1) + ": ");
+                cal = sc.nextInt();
+                if (cal < 0 || cal > 100) {
+                    System.out.println("Calificación invalida, ingresela de nuevo");
+                }
             }
+            calificaciones[i] = cal;
         }
 
-        double promedio = puntosObtenidos / 7.0;
+        return calificaciones;
+    }
 
-        System.out.println("Tus untos acumulados:" + puntosObtenidos);
-        System.out.println("Promedio de tu puntuacion:" + promedio);
-        System.out.println("Partidas con mas de 1000 puntos:" + masDeMilPuntos);
-        System.out.println("Partidas con 1000 puntos o menos:" + menosOIgualAMil);
+    public static void mostrarCalificaciones(int[] calificaciones) {
+        System.out.println("\nCalificaciones capturadas:");
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Alumno " + (i + 1) + ": " + calificaciones[i]);
+        }
+    }
 
+    public static int contarAprobados(int[] calificaciones) {
+        int aprobados = 0;
+        for (int i = 0; i < 10; i++) {
+            if (calificaciones[i] >= 70) {
+                aprobados = aprobados + 1;
+            }
+        }
+        return aprobados;
+    }
+
+    public static int contarReprobados(int[] calificaciones) {
+        int reprobados = 0;
+        for (int i = 0; i < 10; i++) {
+            if (calificaciones[i] < 70) {
+                reprobados = reprobados + 1;
+            }
+        }
+        return reprobados;
+    }
+
+    public static void main(String[] args) {
+        int[] calificaciones = capturarCalificaciones();
+        mostrarCalificaciones(calificaciones);
+
+        int aprobados = contarAprobados(calificaciones);
+        int reprobados = contarReprobados(calificaciones);
+
+        System.out.println("\nAlumnos aprobados: " + aprobados);
+        System.out.println("Alumnos reprobados: " + reprobados);
     }
 }
